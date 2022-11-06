@@ -1,2 +1,4 @@
 # Ignoring Data Base
 /docker/data
+# Ignoring Libraries
+/src/vendor
