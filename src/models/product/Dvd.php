@@ -3,7 +3,7 @@
 namespace app\models\product;
 use PDO;
 use app\models\product\interfaces\ProductInterface;
-
+use app\helpers\UtilHelper;
 
 class Dvd extends Product implements ProductInterface
 {

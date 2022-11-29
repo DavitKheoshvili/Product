@@ -2,6 +2,7 @@
 
 namespace app\models\product;
 use app\Database;
+use app\helpers\UtilHelper;
 
 abstract class Product
 {

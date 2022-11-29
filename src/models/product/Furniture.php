@@ -2,15 +2,18 @@
 
 namespace app\models\product;
 use PDO;
+use app\models\product\interfaces\ProductInterface;
+use app\helpers\UtilHelper;
 
-class Book extends Product
+
+class Furniture extends Product implements ProductInterface
 {
     private int $width;
     private int $height;
     private int $length;
 
     public function load($data) {
-        $this->SKU = $data['sku'];
+        $this->SKU = UtilHelper::randomString(10);
         $this->name = $data['name'];
         $this->price = $data['price'];
         $this->width = (int)$data['width'];
@@ -43,7 +46,7 @@ class Book extends Product
 
         $statement->execute();
 
-        $statement = $pdo->prepare("INSERT INTO book (SKU, width, height, length)
+        $statement = $pdo->prepare("INSERT INTO furniture (SKU, width, height, length)
                 VALUES (:SKU, :width, :height, :length)");
         $statement->bindValue(':SKU', $this->SKU);
         $statement->bindValue(':width', $this->width);
