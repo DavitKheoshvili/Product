@@ -2,7 +2,8 @@
 
 namespace app;
 
-use app\models\Product;
+use app\models\product\Product;
+use app\models\product\interfaces\ProductInterface;
 use PDO;
 
 class Database
@@ -17,17 +18,18 @@ class Database
         self::$db = $this;
     }
 
-    public function getProducts($keyword = '')
+    public function getProducts()
     {
-        if ($keyword) {
-            $statement = $this->pdo->prepare('SELECT * FROM product WHERE title like :keyword ORDER BY create_date DESC');
-            $statement->bindValue(":keyword", "%$keyword%");
-        } else {
-            $statement = $this->pdo->prepare('SELECT * FROM product ORDER BY create_date DESC');
+        $types = Product::getTypes();
+        $products = [];
+        foreach($types as $type){
+            $statement = $this->pdo->prepare(
+                'SELECT * FROM products INNER JOIN ' . $type . ' ON products.SKU = ' . $type . '.SKU');
+            $statement->execute();
+            $products = array_merge($products, $statement->fetchAll(PDO::FETCH_ASSOC));
         }
-        $statement->execute();
-
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    
+        return $products;
     }
 
     public function getProductById($id)
@@ -47,21 +49,6 @@ class Database
         return $statement->execute();
     }
 
-    public function updateProduct(Product $product)
-    {
-        $statement = $this->pdo->prepare("UPDATE product SET title = :title, 
-                                        imagePath = :imagePath, 
-                                        description = :description, 
-                                        price = :price WHERE id = :id");
-        $statement->bindValue(':title', $product->title);
-        $statement->bindValue(':imagePath', $product->imagePath);
-        $statement->bindValue(':description', $product->description);
-        $statement->bindValue(':price', $product->price);
-        $statement->bindValue(':id', $product->id);
-
-        $statement->execute();
-    }
-
     public function createProduct(Product $product)
     {
         $statement = $this->pdo->prepare("INSERT INTO product (title, imagePath, description, price, create_date)
@@ -71,6 +58,13 @@ class Database
         $statement->bindValue(':description', $product->description);
         $statement->bindValue(':price', $product->price);
         $statement->bindValue(':date', date('Y-m-d H:i:s'));
+
+        $statement->execute();
+    }
+
+    public function createProducts(ProductInterface $product)
+    {
+        $statement = $product->getStatementAndBindValues($this->pdo);
 
         $statement->execute();
     }

@@ -3,45 +3,20 @@
 <p>
     <a href="/products/create" type="button" class="btn btn-sm btn-success">Add Product</a>
 </p>
-<form action="" method="get">
-    <div class="input-group mb-3">
-      <input type="text" name="search" class="form-control" placeholder="Search" value="<?php echo $keyword ?>">
-      <div class="input-group-append">
-        <button class="btn btn-success" type="submit">Search</button>
-      </div>
-    </div>
-</form>
-<table class="table">
-    <thead>
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">Image</th>
-        <th scope="col">Title</th>
-        <th scope="col">Price</th>
-        <th scope="col">Create Date</th>
-        <th scope="col">Actions</th>
-    </tr>
-    </thead>
-    <tbody>
+<div class="row">
+
     <?php foreach ($products as $i => $product) { ?>
-        <tr>
-            <th scope="row"><?php echo $i + 1 ?></th>
-            <td>
-                <?php if ($product['imagePath']): ?>
-                    <img src="/<?php echo $product['imagePath'] ?>" alt="<?php echo $product['title'] ?>" class="product-img">
-                <?php endif; ?>
-            </td>
-            <td><?php echo $product['title'] ?></td>
-            <td><?php echo $product['price'] ?></td>
-            <td><?php echo $product['create_date'] ?></td>
-            <td>
-                <a href="/products/update?id=<?php echo $product['id'] ?>" class="btn btn-sm btn-outline-primary">Edit</a>
-                <form method="post" action="/products/delete" style="display: inline-block">
-                    <input  type="hidden" name="id" value="<?php echo $product['id'] ?>"/>
-                    <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
-                </form>
-            </td>
-        </tr>
+        <div class="card" style="width: 18rem;">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Name: <?php if ($product['Name']) echo $product['Name'] ?></li>
+                <li class="list-group-item">Prive: <?php if ($product['Price']) echo $product['Price'] ?></li>
+                <li class="list-group-item">SKU: <?php if ($product['SKU']) echo $product['SKU'] ?></li>
+                <li class="list-group-item">Weight: <?php if ($product['Weight']) echo $product['Weight'] ?></li>
+                <li class="list-group-item">Size: <?php if ($product['Size']) echo $product['Size'] ?></li>
+                <li class="list-group-item">Width: <?php if ($product['Width']) echo $product['Width'] ?></li>
+                <li class="list-group-item">Height: <?php if ($product['Height']) echo $product['Height'] ?></li>
+                <li class="list-group-item">Length: <?php if ($product['Length']) echo $product['Length'] ?></li>
+            </ul>
+        </div>
     <?php } ?>
-    </tbody>
-</table>
+</div>

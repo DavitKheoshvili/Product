@@ -2,36 +2,32 @@
 
 namespace app\controllers;
 
-use app\models\Product;
+use app\models\product\Product;
 use app\Router;
+use app\helpers\UtilHelper;
+use ReflectionClass;
 
 class ProductController
 {
     public static function index(Router $router)
     {
-        $keyword = $_GET['search'] ?? '';
-        $products = $router->database->getProducts($keyword);
+        $products = $router->database->getProducts();
         $router->renderView('products/index', [
             'products' => $products,
-            'keyword' => $keyword
         ]);
     }
 
     public static function create(Router $router)
     {
-        $productData = [
-            'image' => '',
-            'title' => '',
-            'description' => '',
-            'price' => ''
-        ];
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $productData['title'] = $_POST['title'];
-            $productData['description'] = $_POST['description'];
-            $productData['price'] = $_POST['price'];
-            $productData['imageFile'] = $_FILES['image'] ?? null;
-
-            $product = new Product();
+        $productData = [];
+        if ($_SERVER['REQUEST_METHOD'] === 'POST')
+         {
+            foreach($_POST as $key => $value)
+            {
+                $productData[$key] = $value;
+            }
+            
+            $product = (new ReflectionClass("app\models\product\\" . ucfirst($_POST['type'])))->newInstance();
             $product->load($productData);
             $product->save();
             header('Location: /products');

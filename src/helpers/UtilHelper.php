@@ -13,6 +13,6 @@ class UtilHelper
             $str .= $characters[$index];
         }
 
-        return $str;
+        return strtoupper($str);
     }
 }
