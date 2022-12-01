@@ -67,15 +67,16 @@ class ProductController
 
     public static function delete(Router $router)
     {
-        $id = $_POST['id'] ?? null;
-        if (!$id) {
-            header('Location: /products');
-            exit;
-        }
+        // $id = $_POST['id'] ?? null;
+        // if (!$_POST) {
+        //     header('Location: /products');
+        //     exit;
+        // }
+        $products = ['takhti200' => 'furniture', '6WXXUWGWFD' => 'furniture'];
+        $router->database->massDeleteProduct($products);
 
-        if ($router->database->deleteProduct($id)) {
-            header('Location: /products');
-            exit;
-        }
+        header('Location: /products');
+        exit;
+        
     }
 }

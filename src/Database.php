@@ -41,12 +41,22 @@ class Database
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function deleteProduct($id)
-    {
-        $statement = $this->pdo->prepare('DELETE FROM product WHERE id = :id');
-        $statement->bindValue(':id', $id);
+    public function deleteProduct($SKU, $type)
+    {   
+        $mainStatement = $this->pdo->prepare('DELETE FROM products WHERE SKU = :SKU');
+        $mainStatement->bindValue(':SKU', $SKU);
+        
+        $productStatement = $this->pdo->prepare('DELETE FROM '. $type .' WHERE SKU = :SKU');
+        $productStatement->bindValue(':SKU', $SKU);
+        
+        return ($mainStatement->execute() && $productStatement->execute());
+    }
 
-        return $statement->execute();
+    public function massDeleteProduct($products)
+    {
+        foreach($products as $SKU => $type){
+            $this->deleteProduct($SKU, $type);
+        }
     }
 
     public function createProduct(Product $product)

@@ -12,7 +12,7 @@
 <?php //endif; 
 ?>
 
-<form method="post" enctype="multipart/form-data">
+<form method="post">
     <div class="form-check">
         <input class="form-check-input" type="radio" name="type" value="book" id="Book">
         <label class="form-check-label" for="flexRadioDefault1">

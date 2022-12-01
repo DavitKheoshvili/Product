@@ -10,7 +10,7 @@ class Dvd extends Product implements ProductInterface
     private int $size;
     
     public function load($data) {
-        $this->SKU = $data['sku'];
+        $this->SKU = UtilHelper::randomString(10);
         $this->name = $data['name'];
         $this->price = $data['price'];
         $this->size = (int)$data['size'];
