@@ -34,7 +34,8 @@ class Furniture extends Product implements ProductInterface
     }
     public function save()
     {
-        parent::save();
+        $db = parent::save();
+        $db->createProducts($this);
     }
     public function getStatementAndBindValues(PDO $pdo)
     {

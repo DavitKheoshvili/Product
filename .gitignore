@@ -2,3 +2,4 @@
 /docker/data
 # Ignoring Libraries
 /src/vendor
+/react/app/node_modules

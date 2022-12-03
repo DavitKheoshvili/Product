@@ -9,12 +9,9 @@ $database = new app\Database();
 $router = new Router($database);
 
 $router->get('/', [ProductController::class, 'index']);
-$router->get('/products', [ProductController::class, 'index']);
-$router->get('/products/index', [ProductController::class, 'index']);
-$router->get('/products/create', [ProductController::class, 'create']);
+$router->get('/api', [ProductController::class, 'index']);
+$router->get('/products/api', [ProductController::class, 'index']);
 $router->post('/products/create', [ProductController::class, 'create']);
-$router->get('/products/update', [ProductController::class, 'update']);
-$router->post('/products/update', [ProductController::class, 'update']);
-$router->post('/products/delete', [ProductController::class, 'delete']);
+$router->post('/products/delete', [ProductController::class, 'massDelete']);
 
 $router->resolve();
