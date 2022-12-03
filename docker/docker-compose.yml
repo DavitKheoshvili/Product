@@ -1,11 +1,11 @@
 version: '3.8'
 
 services:
-  app:
+  api:
     build:
       context: ./
       dockerfile: Dockerfile
-    container_name: app
+    container_name: api
     restart: always
     working_dir: /var/www/
     volumes:
@@ -45,3 +45,15 @@ services:
             - "8989:3306"
         volumes:
             - "./data/db/mysql:/var/lib/mysql"
+  app:
+    build:
+      context: ../react/
+      dockerfile: Dockerfile
+    container_name: app
+    ports:
+      - '3000:3000'
+    working_dir: /var/www/
+    volumes:
+      - ../react/app:/var/www
+    stdin_open: true
+    tty: true
