@@ -10,9 +10,9 @@ class ProductController
     public static function index(Router $router)
     {
         $products = $router->database->getProducts();
-        $router->renderView('products/index', [
-            'products' => $products,
-        ]);
+        
+        header('Content-type: application/json');
+        echo json_encode($products);
     }
 
     public static function create(Router $router)
@@ -35,33 +35,6 @@ class ProductController
             'product' => $productData
         ]);
     }
-
-    // public static function update(Router $router)
-    // {
-    //     $id = $_GET['id'] ?? null;
-    //     if (!$id) {
-    //         header('Location: /products');
-    //         exit;
-    //     }
-    //     $productData = $router->database->getProductById($id);
-
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //         $productData['title'] = $_POST['title'];
-    //         $productData['description'] = $_POST['description'];
-    //         $productData['price'] = $_POST['price'];
-    //         $productData['imageFile'] = $_FILES['image'] ?? null;
-
-    //         $product = new Product();
-    //         $product->load($productData);
-    //         $product->save();
-    //         header('Location: /products');
-    //         exit;
-    //     }
-
-    //     $router->renderView('products/update', [
-    //         'product' => $productData
-    //     ]);
-    // }
 
     public static function massDelete(Router $router)
     {
