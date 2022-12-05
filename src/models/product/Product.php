@@ -10,6 +10,7 @@ abstract class Product
     protected string $SKU;
     protected string $name;
     protected float $price;
+    protected string $type;
 
     public static function getTypes()
     {

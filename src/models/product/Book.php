@@ -13,6 +13,7 @@ class Book extends Product implements ProductInterface
         $this->SKU = UtilHelper::randomString(10);
         $this->name = $data['name'];
         $this->price = $data['price'];
+        $this->price = $data['type'];
         $this->weight = (int)$data['weight'];
     }
 
@@ -32,11 +33,12 @@ class Book extends Product implements ProductInterface
     }
     public function getStatementAndBindValues(PDO $pdo)
     {
-        $statement = $pdo->prepare("INSERT INTO products (SKU, name, price)
-        VALUES (:SKU, :name, :price)");
+        $statement = $pdo->prepare("INSERT INTO products (SKU, name, price, type)
+        VALUES (:SKU, :name, :price, :type)");
         $statement->bindValue(':SKU', $this->SKU);
         $statement->bindValue(':name', $this->name);
         $statement->bindValue(':price', $this->price);
+        $statement->bindValue(':type', $this->type);
 
         $statement->execute();
 
