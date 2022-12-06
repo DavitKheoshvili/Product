@@ -11,7 +11,9 @@ class ProductController
     {
         $products = $router->database->getProducts();
         
-        header('Content-type: application/json');
+        header('Content-type: application/json; charset=utf-8');
+        header('Access-Control-Allow-Origin: *');
+        // echo json_encode((object) $products);
         echo json_encode($products);
     }
 
