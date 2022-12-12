@@ -22,13 +22,14 @@ class Database
     {
         $types = Product::getTypes();
         $products = [];
-        foreach($types as $type){
+        foreach ($types as $type) {
             $statement = $this->pdo->prepare(
-                'SELECT * FROM products INNER JOIN ' . $type . ' ON products.SKU = ' . $type . '.SKU');
+                'SELECT * FROM products INNER JOIN ' . $type . ' ON products.SKU = ' . $type . '.SKU'
+            );
             $statement->execute();
             $products = array_merge($products, $statement->fetchAll(PDO::FETCH_ASSOC));
         }
-    
+
         return $products;
     }
 
@@ -42,20 +43,20 @@ class Database
     }
 
     public function deleteProduct($SKU, $type)
-    {   
+    {
         $mainStatement = $this->pdo->prepare('DELETE FROM products WHERE SKU = :SKU');
         $mainStatement->bindValue(':SKU', $SKU);
-        
-        $productStatement = $this->pdo->prepare('DELETE FROM '. $type .' WHERE SKU = :SKU');
+
+        $productStatement = $this->pdo->prepare('DELETE FROM ' . $type . ' WHERE SKU = :SKU');
         $productStatement->bindValue(':SKU', $SKU);
-        
+
         return ($mainStatement->execute() && $productStatement->execute());
     }
 
     public function massDeleteProduct($products)
     {
-        foreach($products as $SKU => $type){
-            $this->deleteProduct($SKU, $type);
+        foreach ($products as $index => $product) {
+            $this->deleteProduct($product->sku, $product->type);
         }
     }
 

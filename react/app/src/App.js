@@ -13,7 +13,6 @@ function App() {
         <Route path="/product/add" element={<AddProduct />} />
       </Routes>
     </>
-
   );
 }
 

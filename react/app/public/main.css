@@ -1,0 +1,39 @@
+ul {
+    list-style-type: none;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    margin: 50px 20px 0 20px;
+    border-bottom: 2px solid black;
+}
+body {
+    margin: 10px;
+}
+
+.container {
+    width: 100%;
+    display: grid;
+    grid-gap: 50px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.buttonsContainer {
+}
+
+button {
+    margin: 0 10px;
+}
+
+.container {
+    background-color: aqua;
+    margin-top: 20px;
+}
+
+.addForm {
+    display: flex;
+    flex-direction: column;
+}

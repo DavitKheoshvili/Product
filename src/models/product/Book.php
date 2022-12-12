@@ -12,8 +12,8 @@ class Book extends Product implements ProductInterface
     public function load($data) {
         $this->SKU = UtilHelper::randomString(10);
         $this->name = $data['name'];
-        $this->price = $data['price'];
-        $this->price = $data['type'];
+        $this->price = (float)$data['price'];
+        $this->type = $data['type'];
         $this->weight = (int)$data['weight'];
     }
 

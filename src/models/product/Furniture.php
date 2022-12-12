@@ -16,7 +16,7 @@ class Furniture extends Product implements ProductInterface
         $this->SKU = UtilHelper::randomString(10);
         $this->name = $data['name'];
         $this->price = $data['price'];
-        $this->price = $data['type'];
+        $this->type = $data['type'];
         $this->width = (int)$data['width'];
         $this->height = (int)$data['height'];
         $this->length = (int)$data['length'];

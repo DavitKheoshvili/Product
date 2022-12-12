@@ -10,37 +10,33 @@ class ProductController
     public static function index(Router $router)
     {
         $products = $router->database->getProducts();
-        
+
         header('Content-type: application/json; charset=utf-8');
         header('Access-Control-Allow-Origin: *');
+
         // echo json_encode((object) $products);
         echo json_encode($products);
     }
 
     public static function create(Router $router)
     {
-        $productData = [];
-        if ($_SERVER['REQUEST_METHOD'] === 'POST')
-         {
-            foreach($_POST as $key => $value)
-            {
-                $productData[$key] = $value;
-            }
-            
-            $product = (new ReflectionClass("app\models\product\\" . ucfirst($_POST['type'])))->newInstance();
-            $product->load($productData);
-            $product->save();
-            header('Location: /products');
-            exit;
-        }
-        $router->renderView('products/create', [
-            'product' => $productData
-        ]);
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Headers: *');
+        $productData = (array) json_decode(file_get_contents('php://input'));
+    
+        $product = (new ReflectionClass("app\models\product\\" . ucfirst($productData['type'])))->newInstance();
+        $product->load($productData);
+        $product->save();
     }
 
     public static function massDelete(Router $router)
     {
-        $products = ['takhti200' => 'furniture', '6WXXUWGWFD' => 'furniture'];
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Headers: *');
+        //$productData = (array) json_decode(file_get_contents('php://input'));
+        $products = json_decode(file_get_contents('php://input'));
+        // exit;
+        // $products = ['takhti200' => 'furniture', '6WXXUWGWFD' => 'furniture'];
         $router->database->massDeleteProduct($products);
 
         header('Location: /');
