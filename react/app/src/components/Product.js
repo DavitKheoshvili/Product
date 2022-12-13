@@ -9,8 +9,6 @@ function Product({ product }) {
       {product['type'] === 'dvd' && <li>Size: {product['Size']}MB</li>}
       {product['type'] === 'furniture' && 
       <li>Dimentions: {product['Length']}x{product['Width']}x{product['Height']}</li>}
-
-
     </ul>
   );
 }

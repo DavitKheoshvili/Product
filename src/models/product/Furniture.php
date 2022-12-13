@@ -13,7 +13,7 @@ class Furniture extends Product implements ProductInterface
     private int $length;
 
     public function load($data) {
-        $this->SKU = UtilHelper::randomString(10);
+        $this->SKU = $data['sku'];
         $this->name = $data['name'];
         $this->price = $data['price'];
         $this->type = $data['type'];
