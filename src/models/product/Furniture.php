@@ -1,10 +1,9 @@
 <?php
 
 namespace app\models\product;
+
 use PDO;
 use app\models\product\interfaces\ProductInterface;
-use app\helpers\UtilHelper;
-
 
 class Furniture extends Product implements ProductInterface
 {
@@ -12,17 +11,44 @@ class Furniture extends Product implements ProductInterface
     private int $height;
     private int $length;
 
-    public function load($data) {
-        $this->SKU = $data['sku'];
-        $this->name = $data['name'];
-        $this->price = $data['price'];
-        $this->type = $data['type'];
-        $this->width = (int)$data['width'];
-        $this->height = (int)$data['height'];
-        $this->length = (int)$data['length'];
+    protected function validate($data)
+    {
+        return
+            $this->validateHeight($data['height']) &&
+            $this->validateWidth($data['width']) &&
+            $this->validateLength($data['length']);
     }
 
-    public function getData() 
+    private function validateHeight($height)
+    {
+        return preg_match("/^[1-9][0-9]*?$/", $height);
+    }
+
+    private function validateWidth($width)
+    {
+        return preg_match("/^[1-9][0-9]*?$/", $width);
+    }
+
+    private function validateLength($length)
+    {
+        return preg_match("/^[1-9][0-9]*?$/", $length);
+    }
+
+    public function load($data)
+    {
+        if (parent::validate($data) && $this->validate($data)) {
+            $this->SKU = $data['sku'];
+            $this->name = $data['name'];
+            $this->price = $data['price'];
+            $this->type = $data['type'];
+            $this->width = (int)$data['width'];
+            $this->height = (int)$data['height'];
+            $this->length = (int)$data['length'];
+            $this->save();
+        }
+    }
+
+    public function getData()
     {
         $data['sku'] = $this->SKU;
         $data['name'] = $this->name;

@@ -1,23 +1,37 @@
 <?php
 
 namespace app\models\product;
+
 use PDO;
 use app\models\product\interfaces\ProductInterface;
-use app\helpers\UtilHelper;
 
 class Dvd extends Product implements ProductInterface
 {
     private int $size;
-    
-    public function load($data) {
-        $this->SKU = $data['sku'];
-        $this->name = $data['name'];
-        $this->price = (float)$data['price'];
-        $this->type = $data['type'];
-        $this->size = (int)$data['size'];
+
+    protected function validate($data)
+    {
+        return $this->validateSize($data['size']);
     }
 
-    public function getData() 
+    private function validateSize($size)
+    {
+        return preg_match("/^[1-9][0-9]*?$/", $size);
+    }
+
+    public function load($data)
+    {
+        if (parent::validate($data) && $this->validate($data)) {
+            $this->SKU = $data['sku'];
+            $this->name = $data['name'];
+            $this->price = (float)$data['price'];
+            $this->type = $data['type'];
+            $this->size = (int)$data['size'];
+            $this->save();
+        }
+    }
+
+    public function getData()
     {
         $data['sku'] = $this->SKU;
         $data['name'] = $this->name;

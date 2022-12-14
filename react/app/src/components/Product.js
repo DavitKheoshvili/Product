@@ -1,7 +1,7 @@
 
 function Product({ product }) {
   return (
-    <ul className=''>
+    <ul className='list'>
       <li>{product['SKU']}</li>
       <li>{product['Name']}</li>
       <li>{product['Price']} $</li>

@@ -3,7 +3,7 @@ import ProductType from '../components/ProductType'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 
-function AddProduct() {
+function AddProduct({ products, setNewProduct }) {
   const [type, setType] = useState('');
   const navigate = useNavigate();
   const [errors, setErrors] = useState({
@@ -49,6 +49,10 @@ function AddProduct() {
       setErrors({ ...errors, sku: "Please, provide the data of indicated type" });
       return false;
     }
+    if(products.filter((product) => product.SKU == formData.sku).length){
+      setErrors({ ...errors, sku: "Product with such SKU already exists" });
+      return false;
+    }
 
     if (!/\w/.test(formData.name)) {
       setErrors({ ...errors, name: "Please, submit required data" });
@@ -58,10 +62,6 @@ function AddProduct() {
       setErrors({ ...errors, name: "Please, provide the data of indicated type" });
       return false;
     } else if (!(/^[\w\s]{3,50}$/.test(formData.name) && formData.name.match(/[A-Za-z]/g).length >= 2)) {
-      setErrors({ ...errors, name: "Please, provide the data of indicated type" });
-      return false;
-    }
-    if (!/\w/.test(formData.name)) {
       setErrors({ ...errors, name: "Please, provide the data of indicated type" });
       return false;
     }
@@ -128,8 +128,6 @@ function AddProduct() {
   }
   const submitForm = () => {
     let valid = validations();
-    console.log(valid);
-    console.log(errors);
 
     if (valid) {
       axios.post("http://localhost:8000/products/create", formData, {
@@ -138,26 +136,26 @@ function AddProduct() {
         },
       }).then(res => {
         console.log('posting', res);
-        navigate("/product");
+        setNewProduct(true);
+        navigate("/");
       })
         .catch(err => console.log('err ///', err));
     }
-
   }
 
   return (
     <div>
       <div className="header">
         <h1>Product Add</h1>
-        <div>
+        <div className='buttonsContainer'>
           <button onClick={handleSave}>Save</button>
-          <a href="\">Cancel</a>
+          <a href="\"><button>Cancel</button></a>
         </div>
       </div>
 
       <form className="addForm" id="product_form" method="post">
         <label>
-          SKU:
+          SKU
           <input type="text" name="sku" id="sku" onChange={(e) => {
             setFormData({ ...formData, sku: e.target.value });
             setErrors({ ...errors, sku: "" })
@@ -165,7 +163,7 @@ function AddProduct() {
         </label>
         <p style={{ color: "red" }}>{errors.sku}</p>
         <label>
-          Name:
+          Name
           <input type="text" name="name" id="name" onChange={(e) => {
             setFormData({ ...formData, name: e.target.value });
             setErrors({ ...errors, name: "" })
@@ -173,19 +171,23 @@ function AddProduct() {
         </label>
         <p style={{ color: "red" }}>{errors.name}</p>
         <label>
-          Price:
+          Price ($)
           <input type="text" name="price" id="price" onChange={(e) => {
             setFormData({ ...formData, price: e.target.value });
             setErrors({ ...errors, price: "" })
           }} />
         </label>
         <p style={{ color: "red" }}>{errors.price}</p>
-        <select name="cars" id="productType" onChange={typeSwitcher}>
-          <option>Type Switcher</option>
-          {options.map((option) => (
-            <option key={option.value} value={option.value} id={option.label}>{option.label}</option>
-          ))}
-        </select>
+        <div id='type_switcher'>
+          <label>Type Switcher</label>
+          <select name="cars" id="productType" onChange={typeSwitcher}>
+            <option>Type Switcher</option>
+            {options.map((option) => (
+              <option key={option.value} value={option.value} id={option.label}>{option.label}</option>
+            ))}
+          </select>
+        </div>
+
         <ProductType
           productType={type}
           formData={formData}

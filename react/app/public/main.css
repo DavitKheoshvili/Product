@@ -10,30 +10,86 @@ ul {
     margin: 50px 20px 0 20px;
     border-bottom: 2px solid black;
 }
+
 body {
     margin: 10px;
 }
 
 .container {
-    width: 100%;
+    max-width: 100%;
     display: grid;
-    grid-gap: 50px;
+    padding: 20px;
+    grid-gap: 20px;
+    box-sizing: content-box;
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
+@media (max-width: 900px) {
+    .container {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
 
-.buttonsContainer {
+@media (max-width: 670px) {
+    .container {
+        grid-template-columns: 1fr 1fr ;
+    }
+    .header {
+        flex-direction: column;
+    }
+    .buttonsContainer {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+    label {
+        flex-direction: column;
+    }
+}
+@media (max-width: 400px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
 }
 
 button {
     margin: 0 10px;
+    background-color: white;
+    box-shadow: 2px 2px;
 }
 
-.container {
-    background-color: aqua;
+.card {
+    padding: 0 20px;
+    border: 2px solid black;
+    padding: 10px;
+}
+
+#product_form {
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
     margin-top: 20px;
 }
 
-.addForm {
+.list {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+input {
+    border: 2px solid black;
+}
+label {
+    max-width: 50%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#type_switcher {
+    margin-bottom: 20px;
 }

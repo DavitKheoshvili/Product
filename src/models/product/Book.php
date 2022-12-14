@@ -1,23 +1,37 @@
 <?php
 
 namespace app\models\product;
+
 use PDO;
 use app\models\product\interfaces\ProductInterface;
-use app\helpers\UtilHelper;
 
 class Book extends Product implements ProductInterface
 {
     private int $weight;
-    
-    public function load($data) {
-        $this->SKU = $data['sku'];
-        $this->name = $data['name'];
-        $this->price = (float)$data['price'];
-        $this->type = $data['type'];
-        $this->weight = (int)$data['weight'];
+
+    protected function validate($data)
+    {
+        return $this->validateWeight($data['weight']);
     }
 
-    public function getData() 
+    private function validateWeight($weight)
+    {
+        return preg_match("/^[1-9][0-9]*?$/", $weight);
+    }
+    
+    public function load($data)
+    {
+        if (parent::validate($data) && $this->validate($data)) {
+            $this->SKU = $data['sku'];
+            $this->name = $data['name'];
+            $this->price = (float)$data['price'];
+            $this->type = $data['type'];
+            $this->weight = (int)$data['weight'];
+            $this->save();
+        }
+    }
+
+    public function getData()
     {
         $data['sku'] = $this->SKU;
         $data['name'] = $this->name;

@@ -2,17 +2,8 @@ import axios from "axios"
 import Product from "../components/Product";
 import { useEffect, useState } from 'react';
 
-function ProductList() {
-  const [products, setProducts] = useState([]);
+function ProductList({ products }) {
   let skuList = [];
-
-  useEffect(() => {
-    axios.get("http://localhost:8000/").then(res => {
-      setProducts(res.data);
-    }).catch(err => {
-      console.log("errorrr", err);
-    })
-  }, []);
 
   const handleCheckbox = (e) => {
     if (!skuList.some((elem) => elem.sku === e.target.id)) {
@@ -38,7 +29,7 @@ function ProductList() {
       <div className="header">
         <h1>Product List</h1>
         <div className="buttonsContainer">
-          <a href="\add">Add</a>
+          <a href="\add"><button>Add</button></a>
           <button id="delete-product-btn" onClick={handleMassDelete}>Mass Delete</button>
         </div>
       </div>
@@ -46,8 +37,8 @@ function ProductList() {
         {
           products.map((product, index) => {
             return (
-              <div key={index}>
-                <input type="checkbox" class="delete-checkbox" id={product.SKU} value={product.type} onChange={handleCheckbox} />
+              <div key={index} className="card">
+                <input type="checkbox" className="delete-checkbox" id={product.SKU} value={product.type} onChange={handleCheckbox} />
                 <Product product={product} />
               </div>
             )
