@@ -50,6 +50,7 @@ services:
       context: ../react/
       dockerfile: Dockerfile
     container_name: app
+    restart: always
     ports:
       - '3000:3000'
     working_dir: /var/www/
