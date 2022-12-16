@@ -1,7 +1,24 @@
-#### The exercise for the PHP course "Learn PHP The Right Way" lesson 2.1.
+#### This is PHP/React example project 
 
-https://youtu.be/I_9-xWmkh28
+visit: http://157.230.125.117:3000/
+Try add products or delete them.
 
 ---
-#### Course Playlist
-https://www.youtube.com/watch?v=sVbEyFZKgqk&list=PLr3d3QYzkw2xabQRUpcZ_IBk9W50M9pe-
+#### Add project on local machine
+1. Make sure you have installed docker on your machine
+2. Make sure you have installed composer
+3. Make sure you have installed node
+4. Make sure you have installed npm
+5. Clone project:
+``` git clone git@github.com:DavitKheoshvili/Product.git ```
+6. Navigate to docker folder throw terminal: 
+``` cd Project/docker ```
+7. Enter following comand to start containers: 
+``` docker compose up -d ```
+8. Change axios request url to localhost in following files:
+Project/react/app/src/App.js
+Project/react/app/src/pages/AddProduct.js
+Project/react/app/src/pages/ProductList.js
+
+
+
