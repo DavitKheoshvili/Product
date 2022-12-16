@@ -8,7 +8,7 @@ function App() {
   const [products, setProducts] = useState([]);
   const [newProduct, setNewProduct] = useState(false);
   useEffect(() => {
-    axios.get("http://localhost:8000/").then(res => {
+    axios.get("http://157.230.125.117:8000/").then(res => {
       setProducts(res.data);
     }).catch(err => {
       console.log("errorrr", err);

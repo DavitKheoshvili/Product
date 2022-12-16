@@ -45,7 +45,7 @@ function AddProduct({ products, setNewProduct }) {
       setErrors({ ...errors, sku: "Please, submit required data" });
       return false;
     }
-    if (!/^[A-Z0-9]{8,10}$/.test(formData.sku)) {
+    if (!/^[A-Za-z0-9]{8,10}$/.test(formData.sku)) {
       setErrors({ ...errors, sku: "Please, provide the data of indicated type" });
       return false;
     }
@@ -130,7 +130,7 @@ function AddProduct({ products, setNewProduct }) {
     let valid = validations();
 
     if (valid) {
-      axios.post("http://localhost:8000/products/create", formData, {
+      axios.post("http://157.230.125.117:8000/products/create", formData, {
         headers: {
           "Content-type": "multipart/form-date",
         },

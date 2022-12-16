@@ -19,7 +19,7 @@ abstract class Product
 
     private function validateSKU($sku)
     {
-        return preg_match("/^[A-Z0-9]{8,10}$/", $sku);
+        return preg_match("/^[A-Za-z0-9]{8,10}$/", $sku);
     }
     private function validateName($name)
     {

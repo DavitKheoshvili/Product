@@ -13,7 +13,7 @@ function ProductList({ products }) {
     }
   }
   const handleMassDelete = () => {
-    axios.post("http://localhost:8000/products/delete", skuList, {
+    axios.post("http://157.230.125.117:8000/products/delete", skuList, {
       headers: {
         "Content-type": "multipart/form-date",
       },
@@ -29,8 +29,8 @@ function ProductList({ products }) {
       <div className="header">
         <h1>Product List</h1>
         <div className="buttonsContainer">
-          <a href="\add"><button>Add</button></a>
-          <button id="delete-product-btn" onClick={handleMassDelete}>Mass Delete</button>
+          <a href="\add"><button>ADD</button></a>
+          <button id="delete-product-btn" onClick={handleMassDelete}>MASS DELETE</button>
         </div>
       </div>
       <div className="container">
