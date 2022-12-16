@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Entry script
+ */
 use app\controllers\ProductController;
 use app\Router;
 

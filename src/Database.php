@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Database class. Connects to database, handles Selects, inserts and deletes 
+ */
 namespace app;
 
 use app\models\product\Product;

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Dvd type class
+ */
 namespace app\models\product;
 
 use PDO;

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Book type class
+ */
 namespace app\models\product;
 
 use PDO;

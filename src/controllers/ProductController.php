@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Controller class
+ */
 namespace app\controllers;
 
 use app\Router;

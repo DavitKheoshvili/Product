@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Furniture type class
+ */
+
 namespace app\models\product;
 
 use PDO;
@@ -10,7 +14,13 @@ class Furniture extends Product implements ProductInterface
     private int $width;
     private int $height;
     private int $length;
-
+    /**
+     * Checks if string validations are ok
+     * 
+     * @param array
+     * 
+     * @return bool true if ok. False if is not ok
+     */
     protected function validate($data)
     {
         return
@@ -18,22 +28,46 @@ class Furniture extends Product implements ProductInterface
             $this->validateWidth($data['width']) &&
             $this->validateLength($data['length']);
     }
-
+    /**
+     * Checks if string matchs the height regex
+     * 
+     * @param string
+     * 
+     * @return int 1 if match. 0 if does not match
+     */
     private function validateHeight($height)
     {
         return preg_match("/^[1-9][0-9]*?$/", $height);
     }
-
+    /**
+     * Checks if string matchs the width regex
+     * 
+     * @param string
+     * 
+     * @return int 1 if match. 0 if does not match
+     */
     private function validateWidth($width)
     {
         return preg_match("/^[1-9][0-9]*?$/", $width);
     }
-
+    /**
+     * Checks if string matchs the length regex
+     * 
+     * @param string
+     * 
+     * @return int 1 if match. 0 if does not match
+     */
     private function validateLength($length)
     {
         return preg_match("/^[1-9][0-9]*?$/", $length);
     }
-
+    /**
+     * If data is valid, sets data to properties
+     * 
+     * @param array
+     * 
+     * @return void
+     */
     public function load($data)
     {
         if (parent::validate($data) && $this->validate($data)) {
@@ -47,7 +81,13 @@ class Furniture extends Product implements ProductInterface
             $this->save();
         }
     }
-
+    /**
+     * get product data from properties
+     * 
+     * @param
+     * 
+     * @return array
+     */
     public function getData()
     {
         $data['sku'] = $this->SKU;
@@ -59,11 +99,25 @@ class Furniture extends Product implements ProductInterface
 
         return $data;
     }
+    /**
+     * Calls Database method createProduts to insert data in ddatabase.
+     * 
+     * @param string
+     * 
+     * @return void
+     */
     public function save()
     {
         $db = parent::save();
         $db->createProducts($this);
     }
+    /**
+     * Get pdo statement
+     * 
+     * @param PDO
+     * 
+     * @return PDOStatement
+     */
     public function getStatementAndBindValues(PDO $pdo)
     {
         $statement = $pdo->prepare("INSERT INTO products (SKU, name, price, type)
