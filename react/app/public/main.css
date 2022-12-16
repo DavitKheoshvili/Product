@@ -18,10 +18,12 @@ body {
 .container {
     max-width: 100%;
     display: grid;
-    padding: 20px;
+    margin: 20px;
+    padding-bottom: 20px;
     grid-gap: 20px;
     box-sizing: content-box;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    border-bottom: 2px solid black;
 }
 @media (max-width: 900px) {
     .container {
@@ -67,8 +69,9 @@ button {
 #product_form {
     display: flex;
     flex-direction: column;
-    padding: 0 20px;
-    margin-top: 20px;
+    margin: 20px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid black;
 }
 
 .list {
@@ -92,4 +95,9 @@ label {
 
 #type_switcher {
     margin-bottom: 20px;
+    display: flex;
+}
+.footer {
+    width: fit-content;
+    margin: 0 auto;
 }

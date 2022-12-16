@@ -196,6 +196,7 @@ function AddProduct({ products, setNewProduct }) {
           setErrors={setErrors}
         />
       </form>
+      <h3 className="footer">Scandiweb Test assignment</h3>
     </div>
   );
 }

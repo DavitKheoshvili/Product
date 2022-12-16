@@ -44,8 +44,8 @@ function ProductList({ products }) {
             )
           })
         }
-
       </div>
+      <h3 className="footer">Scandiweb Test assignment</h3>
     </>
   );
 }
